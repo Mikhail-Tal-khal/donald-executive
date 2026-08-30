@@ -37,6 +37,7 @@ export function Services() {
                 src={service.image || "/placeholder.svg"}
                 alt={service.title}
                 fill
+                sizes="(min-width: 1280px) 400px, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent" />

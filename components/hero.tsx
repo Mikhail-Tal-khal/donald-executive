@@ -10,6 +10,7 @@ export function Hero() {
           src="/images/hero-chauffeur.png"
           alt="Luxury chauffeur beside a premium car on the Mombasa coast at dusk"
           fill
+          sizes="100vw"
           priority
           className="object-cover"
         />

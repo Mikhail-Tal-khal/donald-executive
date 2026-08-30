@@ -21,6 +21,7 @@ export function Fleet() {
               alt="A lineup of Donald Executive luxury vehicles"
               width={800}
               height={600}
+              sizes="(min-width: 1280px) 600px, (min-width: 1024px) 50vw, 100vw"
               className="h-full w-full object-cover"
             />
           </div>
