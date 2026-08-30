@@ -35,13 +35,14 @@ export function SiteHeader() {
     >
       <div className="mx-auto flex h-18 max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
         <a href="#top" className="flex items-center gap-3">
-          <span className="flex size-11 items-center justify-center overflow-hidden rounded-full bg-background ring-1 ring-primary/40">
+          <span className="relative block size-11 shrink-0 overflow-hidden rounded-full bg-background ring-1 ring-primary/40">
             <Image
               src="/images/donald-executive-logo.jpeg"
-              alt="Donald Executive logo"
-              width={44}
-              height={44}
-              className="scale-110 object-contain"
+              alt=""
+              fill
+              sizes="44px"
+              priority
+              className="object-cover"
             />
           </span>
           <span className="leading-none">
@@ -76,7 +77,7 @@ export function SiteHeader() {
           </a>
           <a
             href="#book"
-            className="inline-flex h-10 items-center rounded-lg bg-primary px-5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-gold-soft"
+            className="inline-flex h-11 items-center rounded-lg bg-primary px-5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-gold-soft"
           >
             Book Now
           </a>
@@ -85,7 +86,7 @@ export function SiteHeader() {
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
-          className="inline-flex size-10 items-center justify-center rounded-lg border border-border text-foreground md:hidden"
+          className="inline-flex size-11 items-center justify-center rounded-lg border border-border text-foreground md:hidden"
           aria-label="Toggle menu"
           aria-expanded={open}
         >

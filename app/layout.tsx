@@ -29,6 +29,9 @@ export const metadata: Metadata = {
     'car hire Nyali',
     'VIP transport Kenya',
   ],
+  icons: {
+    icon: '/favicon.ico',
+  },
 }
 
 export const viewport: Viewport = {

@@ -52,13 +52,13 @@ export function SiteFooter() {
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-4 py-14 sm:px-6 md:grid-cols-4 lg:px-8">
         <div className="md:col-span-2">
           <div className="flex items-center gap-3">
-            <span className="flex size-12 items-center justify-center overflow-hidden rounded-full bg-background ring-1 ring-primary/40">
+            <span className="relative block size-12 shrink-0 overflow-hidden rounded-full bg-background ring-1 ring-primary/40">
               <Image
                 src="/images/donald-executive-logo.jpeg"
-                alt="Donald Executive logo"
-                width={48}
-                height={48}
-                className="scale-110 object-contain"
+                alt=""
+                fill
+                sizes="48px"
+                className="object-cover"
               />
             </span>
             <span>
@@ -83,7 +83,7 @@ export function SiteFooter() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={s.label}
-                className="flex size-10 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:border-primary hover:bg-primary hover:text-primary-foreground"
+                className="flex size-11 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:border-primary hover:bg-primary hover:text-primary-foreground"
               >
                 <s.icon className="size-4" />
               </a>
@@ -93,12 +93,12 @@ export function SiteFooter() {
 
         <div>
           <h4 className="font-serif text-base text-foreground">Explore</h4>
-          <ul className="mt-4 space-y-3">
+          <ul className="mt-2 space-y-0.5">
             {nav.map((item) => (
               <li key={item.href}>
                 <a
                   href={item.href}
-                  className="text-sm text-muted-foreground transition-colors hover:text-primary"
+                  className="inline-flex min-h-11 items-center text-sm text-muted-foreground transition-colors hover:text-primary"
                 >
                   {item.label}
                 </a>
@@ -109,9 +109,9 @@ export function SiteFooter() {
 
         <div>
           <h4 className="font-serif text-base text-foreground">Contact</h4>
-          <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
-            <li className="flex items-start gap-2.5">
-              <MapPin className="mt-0.5 size-4 shrink-0 text-primary" />
+          <ul className="mt-2 space-y-0.5 text-sm text-muted-foreground">
+            <li className="flex min-h-11 items-center gap-2.5">
+              <MapPin className="size-4 shrink-0 text-primary" />
               {site.location}
             </li>
             <li>
@@ -119,7 +119,7 @@ export function SiteFooter() {
                 href={`https://wa.me/${site.whatsapp}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2.5 transition-colors hover:text-primary"
+                className="flex min-h-11 items-center gap-2.5 transition-colors hover:text-primary"
               >
                 <Phone className="size-4 shrink-0 text-primary" />
                 {site.phoneDisplay}
@@ -128,7 +128,7 @@ export function SiteFooter() {
             <li>
               <a
                 href={`mailto:${site.email}`}
-                className="flex items-center gap-2.5 break-all transition-colors hover:text-primary"
+                className="flex min-h-11 items-center gap-2.5 break-all transition-colors hover:text-primary"
               >
                 <Mail className="size-4 shrink-0 text-primary" />
                 {site.email}
