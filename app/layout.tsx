@@ -18,12 +18,13 @@ const jost = Jost({
 export const metadata: Metadata = {
   title: 'Donald Executive | Luxury Travel & Transport in Mombasa',
   description:
-    'Donald Executive — Safe. Comfort. Luxury. Premium chauffeur-driven wedding, corporate, VIP transport, airport transfers and car hire in Nyali, Mombasa, Kenya. Book instantly via WhatsApp.',
+    'Donald Executive — Safe. Comfort. Luxury. Premium chauffeur-driven wedding, corporate, VIP transport, SGR and airport transfers and car hire in Nyali, Mombasa, Kenya. Book instantly via WhatsApp.',
   generator: 'v0.app',
   keywords: [
     'luxury transport Mombasa',
     'chauffeur Mombasa',
     'airport transfer Mombasa',
+    'SGR transfer Mombasa',
     'wedding cars Mombasa',
     'car hire Nyali',
     'VIP transport Kenya',

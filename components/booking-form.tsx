@@ -7,6 +7,7 @@ import {
   CalendarDays,
   Clock,
   Users,
+  Car,
   User,
   MessageSquare,
   ArrowRight,
@@ -21,6 +22,7 @@ const empty: BookingDetails = {
   date: "",
   time: "",
   passengers: "1",
+  vehicles: "1",
   name: "",
   notes: "",
 }
@@ -34,12 +36,17 @@ const labelBase =
 export function BookingForm({ className }: { className?: string }) {
   const [form, setForm] = useState<BookingDetails>(empty)
 
+  // Vehicle count only applies to wedding convoys
+  const showVehicles = form.service === "Wedding Transport"
+
   const update = (key: keyof BookingDetails, value: string) =>
     setForm((prev) => ({ ...prev, [key]: value }))
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    const url = buildWhatsAppLink(form)
+    const url = buildWhatsAppLink(
+      showVehicles ? form : { ...form, vehicles: "" },
+    )
     window.open(url, "_blank", "noopener,noreferrer")
   }
 
@@ -150,6 +157,23 @@ export function BookingForm({ className }: { className?: string }) {
             />
           </div>
         </div>
+
+        {showVehicles && (
+          <div>
+            <label className={labelBase} htmlFor="vehicles">
+              <Car className="size-3.5 text-primary" /> Number of vehicles
+            </label>
+            <input
+              id="vehicles"
+              type="number"
+              min="1"
+              max="20"
+              value={form.vehicles}
+              onChange={(e) => update("vehicles", e.target.value)}
+              className={fieldBase}
+            />
+          </div>
+        )}
 
         <div>
           <label className={labelBase} htmlFor="name">

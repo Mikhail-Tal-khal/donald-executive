@@ -54,7 +54,7 @@ export function SiteFooter() {
           <div className="flex items-center gap-3">
             <span className="flex size-12 items-center justify-center overflow-hidden rounded-full bg-background ring-1 ring-primary/40">
               <Image
-                src="/images/donald-executive-logo.png"
+                src="/images/donald-executive-logo.jpeg"
                 alt="Donald Executive logo"
                 width={48}
                 height={48}

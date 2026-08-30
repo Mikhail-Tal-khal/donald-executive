@@ -3,9 +3,9 @@ export const site = {
   tagline: "Safe · Comfort · Luxury",
   location: "Nyali, Mombasa, Kenya",
   email: "donaldexecutiveke@gmail.com",
-  phoneDisplay: "+254 705 753299",
+  phoneDisplay: "+254 711 164919",
   // digits only, used for wa.me links (Kenya country code 254, drop leading 0)
-  whatsapp: "254705753299",
+  whatsapp: "254711164919",
   socials: {
     facebook: "https://facebook.com/",
     instagram: "https://instagram.com/",
@@ -20,6 +20,13 @@ export const services = [
     description:
       "Arrive in timeless elegance. Immaculate cars, courteous chauffeurs and thoughtful decor for your special day.",
     image: "/images/service-wedding.png",
+  },
+  {
+    id: "sgr",
+    title: "SGR Transfers",
+    description:
+      "Timely chauffeur transfers to and from the SGR station, with luggage assistance and flexible scheduling around your train.",
+    image: "/images/comfort-car.jpeg",
   },
   {
     id: "corporate",
@@ -60,6 +67,7 @@ export type BookingDetails = {
   date: string
   time: string
   passengers: string
+  vehicles: string
   name: string
   notes: string
 }
@@ -75,6 +83,7 @@ export function buildWhatsAppLink(details: Partial<BookingDetails>) {
     details.date ? `Date: ${details.date}` : null,
     details.time ? `Time: ${details.time}` : null,
     details.passengers ? `Passengers: ${details.passengers}` : null,
+    details.vehicles ? `Vehicles needed: ${details.vehicles}` : null,
     details.notes ? `Notes: ${details.notes}` : null,
   ].filter(Boolean)
 

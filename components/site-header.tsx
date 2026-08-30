@@ -37,7 +37,7 @@ export function SiteHeader() {
         <a href="#top" className="flex items-center gap-3">
           <span className="flex size-11 items-center justify-center overflow-hidden rounded-full bg-background ring-1 ring-primary/40">
             <Image
-              src="/images/donald-executive-logo.png"
+              src="/images/donald-executive-logo.jpeg"
               alt="Donald Executive logo"
               width={44}
               height={44}

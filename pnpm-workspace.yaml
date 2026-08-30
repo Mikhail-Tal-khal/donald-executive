@@ -1,0 +1,8 @@
+# pnpm 11 reads overrides and build approvals from here, not package.json
+overrides:
+  hono: 4.12.25
+
+allowBuilds:
+  # sharp powers Next.js production image optimization
+  sharp: true
+  msw: false
