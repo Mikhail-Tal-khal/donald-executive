@@ -3,9 +3,12 @@ export const site = {
   tagline: "Safe · Comfort · Luxury",
   location: "Nyali, Mombasa, Kenya",
   email: "donaldexecutiveke@gmail.com",
+  // Calls only
   phoneDisplay: "+254 711 164919",
-  // digits only, used for wa.me links (Kenya country code 254, drop leading 0)
-  whatsapp: "254711164919",
+  phone: "254711164919",
+  // WhatsApp only — digits for wa.me links (Kenya code 254, no leading 0)
+  whatsappDisplay: "+254 705 753299",
+  whatsapp: "254705753299",
   socials: {
     facebook: "https://facebook.com/",
     instagram: "https://instagram.com/",

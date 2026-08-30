@@ -1,4 +1,4 @@
-import { MapPin, Mail, Phone, Clock } from "lucide-react"
+import { MapPin, Mail, Phone, Clock, MessageCircle } from "lucide-react"
 import { site, buildWhatsAppLink } from "@/lib/site"
 import { BookingForm } from "@/components/booking-form"
 
@@ -7,8 +7,14 @@ export function Contact() {
     { icon: MapPin, label: "Location", value: site.location, href: undefined },
     {
       icon: Phone,
-      label: "Call / WhatsApp",
+      label: "Call us",
       value: site.phoneDisplay,
+      href: `tel:+${site.phone}`,
+    },
+    {
+      icon: MessageCircle,
+      label: "WhatsApp",
+      value: site.whatsappDisplay,
       href: `https://wa.me/${site.whatsapp}`,
     },
     { icon: Mail, label: "Email", value: site.email, href: `mailto:${site.email}` },

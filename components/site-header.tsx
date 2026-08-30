@@ -35,14 +35,14 @@ export function SiteHeader() {
     >
       <div className="mx-auto flex h-18 max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
         <a href="#top" className="flex items-center gap-3">
-          <span className="relative block size-11 shrink-0 overflow-hidden rounded-full bg-background ring-1 ring-primary/40">
+          <span className="relative block size-11 shrink-0 overflow-hidden rounded-full bg-white">
             <Image
-              src="/images/donald-executive-logo.jpeg"
+              src="/images/de-crest.png"
               alt=""
               fill
               sizes="44px"
               priority
-              className="object-cover"
+              className="object-contain"
             />
           </span>
           <span className="leading-none">
@@ -69,7 +69,7 @@ export function SiteHeader() {
 
         <div className="hidden items-center gap-3 md:flex">
           <a
-            href={`tel:+${site.whatsapp}`}
+            href={`tel:+${site.phone}`}
             className="flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
           >
             <Phone className="size-4 text-primary" />

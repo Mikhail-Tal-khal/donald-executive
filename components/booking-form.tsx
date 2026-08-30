@@ -47,7 +47,10 @@ export function BookingForm({ className }: { className?: string }) {
     const url = buildWhatsAppLink(
       showVehicles ? form : { ...form, vehicles: "" },
     )
-    window.open(url, "_blank", "noopener,noreferrer")
+    // Navigate rather than window.open: a popup with a features string gets
+    // blocked silently on mobile Safari and Chrome, and on a phone this hands
+    // straight off to the WhatsApp app.
+    window.location.href = url
   }
 
   return (

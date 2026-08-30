@@ -1,5 +1,5 @@
 import Image from "next/image"
-import { Mail, Phone, MapPin } from "lucide-react"
+import { Mail, Phone, MapPin, MessageCircle } from "lucide-react"
 import { site } from "@/lib/site"
 
 function TikTokIcon({ className }: { className?: string }) {
@@ -52,13 +52,13 @@ export function SiteFooter() {
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-4 py-14 sm:px-6 md:grid-cols-4 lg:px-8">
         <div className="md:col-span-2">
           <div className="flex items-center gap-3">
-            <span className="relative block size-12 shrink-0 overflow-hidden rounded-full bg-background ring-1 ring-primary/40">
+            <span className="relative block size-12 shrink-0 overflow-hidden rounded-full bg-white">
               <Image
-                src="/images/donald-executive-logo.jpeg"
+                src="/images/de-crest.png"
                 alt=""
                 fill
                 sizes="48px"
-                className="object-cover"
+                className="object-contain"
               />
             </span>
             <span>
@@ -116,13 +116,24 @@ export function SiteFooter() {
             </li>
             <li>
               <a
+                href={`tel:+${site.phone}`}
+                className="flex min-h-11 items-center gap-2.5 transition-colors hover:text-primary"
+              >
+                <Phone className="size-4 shrink-0 text-primary" />
+                {site.phoneDisplay}
+                <span className="text-xs text-muted-foreground/70">Calls</span>
+              </a>
+            </li>
+            <li>
+              <a
                 href={`https://wa.me/${site.whatsapp}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex min-h-11 items-center gap-2.5 transition-colors hover:text-primary"
               >
-                <Phone className="size-4 shrink-0 text-primary" />
-                {site.phoneDisplay}
+                <MessageCircle className="size-4 shrink-0 text-primary" />
+                {site.whatsappDisplay}
+                <span className="text-xs text-muted-foreground/70">WhatsApp</span>
               </a>
             </li>
             <li>
