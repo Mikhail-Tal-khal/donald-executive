@@ -17,6 +17,7 @@ import { cn } from "@/lib/utils"
 
 const empty: BookingDetails = {
   service: serviceOptions[0],
+  vehicle: "",
   pickup: "",
   dropoff: "",
   date: "",

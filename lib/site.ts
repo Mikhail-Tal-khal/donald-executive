@@ -65,6 +65,7 @@ export const serviceOptions = services.map((s) => s.title)
 
 export type BookingDetails = {
   service: string
+  vehicle: string
   pickup: string
   dropoff: string
   date: string
@@ -80,6 +81,7 @@ export function buildWhatsAppLink(details: Partial<BookingDetails>) {
     `*New Booking — ${site.name}*`,
     "",
     details.service ? `Service: ${details.service}` : null,
+    details.vehicle ? `Vehicle: ${details.vehicle}` : null,
     details.name ? `Name: ${details.name}` : null,
     details.pickup ? `Pickup: ${details.pickup}` : null,
     details.dropoff ? `Destination: ${details.dropoff}` : null,
@@ -92,4 +94,54 @@ export function buildWhatsAppLink(details: Partial<BookingDetails>) {
 
   const text = encodeURIComponent(lines.join("\n"))
   return `https://wa.me/${site.whatsapp}?text=${text}`
+}
+
+/* ------------------------------------------------------------------ */
+/* Pricing                                                             */
+/* ------------------------------------------------------------------ */
+
+/**
+ * Exchange rate used to convert KES → USD when a row has no published USD
+ * price of its own. Update this one value when the rate moves.
+ */
+export const KES_PER_USD = 133
+
+export type Currency = "KES" | "USD"
+
+export type VehiclePrice = {
+  /** Stable id, used for React keys and WhatsApp deep links */
+  id: string
+  vehicle: string
+  kes: number
+  /**
+   * Published USD price from the printed price list. These are marketing
+   * figures rounded per row, so they are kept verbatim rather than derived
+   * from KES_PER_USD. Omit to fall back to the live conversion.
+   */
+  usd?: number
+  sortOrder: number
+}
+
+/** Source: the Donald Executive vehicle price list. */
+export const pricing: VehiclePrice[] = [
+  { id: "prado", vehicle: "SUV Landcruiser Prado", kes: 15000, usd: 115, sortOrder: 1 },
+  { id: "economy-sedan", vehicle: "Economy Sedans", kes: 4000, usd: 30, sortOrder: 2 },
+  { id: "noah-voxy", vehicle: "Toyota Noah / Voxy", kes: 6000, usd: 45, sortOrder: 3 },
+  { id: "vellfire-alphard", vehicle: "Toyota Vellfire / Alphard", kes: 8000, usd: 60, sortOrder: 4 },
+  { id: "landcruiser-zx", vehicle: "Landcruiser ZX", kes: 20000, usd: 150, sortOrder: 5 },
+  { id: "crown", vehicle: "Toyota Crown", kes: 7000, usd: 55, sortOrder: 6 },
+]
+
+export const pricingNote =
+  "All prices are inclusive of driver, fuel and standard amenities."
+
+/** USD for a row: the published figure when there is one, else converted. */
+export function usdFor(item: VehiclePrice) {
+  return item.usd ?? Math.round(item.kes / KES_PER_USD)
+}
+
+export function formatPrice(item: VehiclePrice, currency: Currency) {
+  return currency === "KES"
+    ? `KES ${item.kes.toLocaleString("en-KE")}`
+    : `$${usdFor(item).toLocaleString("en-US")}`
 }
