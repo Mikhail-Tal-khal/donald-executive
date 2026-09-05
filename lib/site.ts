@@ -101,12 +101,15 @@ export function buildWhatsAppLink(details: Partial<BookingDetails>) {
 /* ------------------------------------------------------------------ */
 
 /**
- * Exchange rate used to convert KES → USD when a row has no published USD
- * price of its own. Update this one value when the rate moves.
+ * Rates used to convert KES into a foreign currency when a row has no
+ * published price of its own. Update these when the rate moves.
  */
 export const KES_PER_USD = 133
+export const KES_PER_EUR = 150
 
-export type Currency = "KES" | "USD"
+export const currencies = ["KES", "USD", "EUR"] as const
+
+export type Currency = (typeof currencies)[number]
 
 export type VehiclePrice = {
   /** Stable id, used for React keys and WhatsApp deep links */
@@ -119,6 +122,8 @@ export type VehiclePrice = {
    * from KES_PER_USD. Omit to fall back to the live conversion.
    */
   usd?: number
+  /** Published EUR price, if one is ever set. Otherwise converted. */
+  eur?: number
   sortOrder: number
 }
 
@@ -135,13 +140,25 @@ export const pricing: VehiclePrice[] = [
 export const pricingNote =
   "All prices are inclusive of driver, fuel and standard amenities."
 
-/** USD for a row: the published figure when there is one, else converted. */
-export function usdFor(item: VehiclePrice) {
-  return item.usd ?? Math.round(item.kes / KES_PER_USD)
+/** Amount for a row in the given currency: published figure, else converted. */
+export function amountIn(item: VehiclePrice, currency: Currency) {
+  switch (currency) {
+    case "KES":
+      return item.kes
+    case "USD":
+      return item.usd ?? Math.round(item.kes / KES_PER_USD)
+    case "EUR":
+      return item.eur ?? Math.round(item.kes / KES_PER_EUR)
+  }
+}
+
+const prefix: Record<Currency, string> = {
+  KES: "KES ",
+  USD: "$",
+  EUR: "€",
 }
 
 export function formatPrice(item: VehiclePrice, currency: Currency) {
-  return currency === "KES"
-    ? `KES ${item.kes.toLocaleString("en-KE")}`
-    : `$${usdFor(item).toLocaleString("en-US")}`
+  const locale = currency === "KES" ? "en-KE" : "en-US"
+  return `${prefix[currency]}${amountIn(item, currency).toLocaleString(locale)}`
 }

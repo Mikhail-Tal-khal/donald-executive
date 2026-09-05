@@ -5,14 +5,14 @@ import { ArrowUpRight, Info } from "lucide-react"
 import {
   pricing,
   pricingNote,
+  currencies,
   formatPrice,
   buildWhatsAppLink,
   KES_PER_USD,
+  KES_PER_EUR,
   type Currency,
 } from "@/lib/site"
 import { cn } from "@/lib/utils"
-
-const currencies: Currency[] = ["KES", "USD"]
 
 const rows = [...pricing].sort((a, b) => a.sortOrder - b.sortOrder)
 
@@ -25,7 +25,7 @@ function bookHref(vehicle: string, price: string) {
 
 export function Pricing() {
   const [currency, setCurrency] = useState<Currency>("KES")
-  const other: Currency = currency === "KES" ? "USD" : "KES"
+  const others = currencies.filter((c) => c !== currency)
 
   return (
     <section id="pricing" className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
@@ -56,7 +56,7 @@ export function Pricing() {
               onClick={() => setCurrency(c)}
               aria-pressed={currency === c}
               className={cn(
-                "min-h-11 rounded-full px-6 text-sm font-semibold uppercase tracking-wider transition-colors",
+                "min-h-11 rounded-full px-5 text-sm font-semibold uppercase tracking-wider transition-colors",
                 currency === c
                   ? "bg-primary text-primary-foreground"
                   : "text-muted-foreground hover:text-foreground",
@@ -72,7 +72,7 @@ export function Pricing() {
       <div className="hidden overflow-hidden rounded-2xl border border-border bg-card md:block">
         <table className="w-full border-collapse text-left">
           <caption className="sr-only">
-            Donald Executive vehicle rates in Kenyan shillings and US dollars
+            Donald Executive vehicle rates in Kenyan shillings, US dollars and euros
           </caption>
           <thead>
             <tr className="border-b border-border bg-background/40">
@@ -82,10 +82,16 @@ export function Pricing() {
               <th scope="col" className="px-6 py-4 text-xs font-semibold uppercase tracking-[0.2em] text-primary">
                 Price ({currency})
               </th>
-              <th scope="col" className="px-6 py-4 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-                Price ({other})
-              </th>
-              <th scope="col" className="px-6 py-4 text-right text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+              {others.map((c) => (
+                <th
+                  key={c}
+                  scope="col"
+                  className="px-6 py-4 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground"
+                >
+                  Price ({c})
+                </th>
+              ))}
+              <th scope="col" className="px-6 py-4 text-right">
                 <span className="sr-only">Book</span>
               </th>
             </tr>
@@ -104,9 +110,11 @@ export function Pricing() {
                   <td className="px-6 py-5 text-xl font-semibold tabular-nums text-primary">
                     {primary}
                   </td>
-                  <td className="px-6 py-5 text-sm tabular-nums text-muted-foreground">
-                    {formatPrice(item, other)}
-                  </td>
+                  {others.map((c) => (
+                    <td key={c} className="px-6 py-5 text-sm tabular-nums text-muted-foreground">
+                      {formatPrice(item, c)}
+                    </td>
+                  ))}
                   <td className="px-6 py-5 text-right">
                     <a
                       href={bookHref(item.vehicle, primary)}
@@ -130,17 +138,14 @@ export function Pricing() {
         {rows.map((item) => {
           const primary = formatPrice(item, currency)
           return (
-            <li
-              key={item.id}
-              className="rounded-2xl border border-border bg-card p-5"
-            >
+            <li key={item.id} className="rounded-2xl border border-border bg-card p-5">
               <h3 className="font-serif text-lg text-foreground">{item.vehicle}</h3>
-              <div className="mt-3 flex items-baseline gap-3">
+              <div className="mt-3 flex flex-wrap items-baseline gap-x-3 gap-y-1">
                 <span className="text-2xl font-semibold tabular-nums text-primary">
                   {primary}
                 </span>
                 <span className="text-sm tabular-nums text-muted-foreground">
-                  {formatPrice(item, other)}
+                  {others.map((c) => formatPrice(item, c)).join(" · ")}
                 </span>
               </div>
               <a
@@ -158,10 +163,10 @@ export function Pricing() {
       </ul>
 
       <p className="mt-6 text-xs text-muted-foreground">
-        USD figures are indicative and settled in KES at the prevailing rate
-        (approx. KES {KES_PER_USD.toLocaleString("en-KE")} to $1). Rates cover
-        standard trips — long-distance, multi-day and wedding convoys are quoted
-        on request.
+        USD and EUR figures are indicative and settled in KES at the prevailing
+        rate (approx. KES {KES_PER_USD.toLocaleString("en-KE")} to $1 and KES{" "}
+        {KES_PER_EUR.toLocaleString("en-KE")} to €1). Rates cover standard trips
+        — long-distance, multi-day and wedding convoys are quoted on request.
       </p>
     </section>
   )
