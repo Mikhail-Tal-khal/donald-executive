@@ -36,6 +36,7 @@ const labelBase =
 
 export function BookingForm({ className }: { className?: string }) {
   const [form, setForm] = useState<BookingDetails>(empty)
+  const [agreed, setAgreed] = useState(false)
 
   // Vehicle count only applies to wedding convoys
   const showVehicles = form.service === "Wedding Transport"
@@ -45,9 +46,10 @@ export function BookingForm({ className }: { className?: string }) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    const url = buildWhatsAppLink(
-      showVehicles ? form : { ...form, vehicles: "" },
-    )
+    const url = buildWhatsAppLink({
+      ...(showVehicles ? form : { ...form, vehicles: "" }),
+      termsAccepted: agreed,
+    })
     // Navigate rather than window.open: a popup with a features string gets
     // blocked silently on mobile Safari and Chrome, and on a phone this hands
     // straight off to the WhatsApp app.
@@ -207,6 +209,28 @@ export function BookingForm({ className }: { className?: string }) {
           />
         </div>
 
+        <label className="flex cursor-pointer items-start gap-3 text-sm leading-snug text-muted-foreground">
+          <input
+            type="checkbox"
+            checked={agreed}
+            onChange={(e) => setAgreed(e.target.checked)}
+            className="mt-0.5 size-4 shrink-0 cursor-pointer accent-primary"
+            required
+          />
+          <span>
+            I agree to the{" "}
+            <a
+              href="/terms"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary underline-offset-2 hover:underline"
+            >
+              terms &amp; conditions
+            </a>
+            , including the cancellation &amp; no-show policy.
+          </span>
+        </label>
+
         <button
           type="submit"
           className="group mt-1 inline-flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-primary text-sm font-semibold uppercase tracking-wide text-primary-foreground transition-all hover:bg-gold-soft"
@@ -215,12 +239,7 @@ export function BookingForm({ className }: { className?: string }) {
           <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
         </button>
         <p className="text-center text-xs text-muted-foreground">
-          Your details are pre-filled into a WhatsApp message to our team. By
-          booking you agree to our{" "}
-          <a href="/terms" className="text-primary underline-offset-2 hover:underline">
-            cancellation &amp; no-show policy
-          </a>
-          .
+          Your details are pre-filled into a WhatsApp message to our team.
         </p>
       </div>
     </form>

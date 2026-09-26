@@ -76,7 +76,9 @@ export type BookingDetails = {
   notes: string
 }
 
-export function buildWhatsAppLink(details: Partial<BookingDetails>) {
+export function buildWhatsAppLink(
+  details: Partial<BookingDetails> & { termsAccepted?: boolean },
+) {
   const lines = [
     `*New Booking — ${site.name}*`,
     "",
@@ -90,6 +92,7 @@ export function buildWhatsAppLink(details: Partial<BookingDetails>) {
     details.passengers ? `Passengers: ${details.passengers}` : null,
     details.vehicles ? `Vehicles needed: ${details.vehicles}` : null,
     details.notes ? `Notes: ${details.notes}` : null,
+    details.termsAccepted ? "Terms: Accepted (cancellation & no-show policy)" : null,
   ].filter(Boolean)
 
   const text = encodeURIComponent(lines.join("\n"))
