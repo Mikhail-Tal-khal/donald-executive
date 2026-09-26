@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { ArrowUpRight, Info } from "lucide-react"
+import { ArrowUpRight, Info, MapPin } from "lucide-react"
 import {
   pricing,
   pricingNote,
@@ -10,6 +10,8 @@ import {
   buildWhatsAppLink,
   KES_PER_USD,
   KES_PER_EUR,
+  SHORT_RIDE_FROM_KES,
+  shortRideService,
   type Currency,
 } from "@/lib/site"
 import { cn } from "@/lib/utils"
@@ -161,6 +163,42 @@ export function Pricing() {
           )
         })}
       </ul>
+
+      {/* Short rides */}
+      <div className="mt-6 flex flex-col gap-4 rounded-2xl border border-primary/30 bg-primary/5 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
+        <div className="flex items-start gap-3">
+          <MapPin className="mt-0.5 size-5 shrink-0 text-primary" />
+          <div>
+            <p className="font-serif text-lg text-foreground">
+              Short rides within Mombasa
+              {SHORT_RIDE_FROM_KES !== null && (
+                <span className="text-primary">
+                  {" "}
+                  from{" "}
+                  {formatPrice(
+                    { id: "short-ride", vehicle: "Short ride", kes: SHORT_RIDE_FROM_KES, sortOrder: 0 },
+                    currency,
+                  )}
+                </span>
+              )}
+            </p>
+            <p className="mt-1 text-sm text-muted-foreground">
+              {SHORT_RIDE_FROM_KES !== null
+                ? "Final fare depends on distance — confirmed on WhatsApp before you ride."
+                : "Priced by distance — send your pickup and destination and we quote on WhatsApp in minutes."}
+            </p>
+          </div>
+        </div>
+        <a
+          href={buildWhatsAppLink({ service: shortRideService, asap: true })}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex h-11 shrink-0 items-center justify-center gap-2 rounded-lg bg-primary px-5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-gold-soft"
+        >
+          Book a ride now
+          <ArrowUpRight className="size-4" />
+        </a>
+      </div>
 
       <p className="mt-6 text-xs text-muted-foreground">
         USD and EUR figures are indicative and settled in KES at the prevailing

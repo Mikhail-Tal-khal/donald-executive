@@ -70,6 +70,8 @@ export const services = [
 
 export const serviceOptions = services.map((s) => s.title)
 
+export const shortRideService = services.find((s) => s.id === "point-to-point")!.title
+
 export type BookingDetails = {
   service: string
   vehicle: string
@@ -84,7 +86,7 @@ export type BookingDetails = {
 }
 
 export function buildWhatsAppLink(
-  details: Partial<BookingDetails> & { termsAccepted?: boolean },
+  details: Partial<BookingDetails> & { asap?: boolean; termsAccepted?: boolean },
 ) {
   const lines = [
     `*New Booking — ${site.name}*`,
@@ -94,8 +96,9 @@ export function buildWhatsAppLink(
     details.name ? `Name: ${details.name}` : null,
     details.pickup ? `Pickup: ${details.pickup}` : null,
     details.dropoff ? `Destination: ${details.dropoff}` : null,
-    details.date ? `Date: ${details.date}` : null,
-    details.time ? `Time: ${details.time}` : null,
+    details.asap ? "When: As soon as possible" : null,
+    !details.asap && details.date ? `Date: ${details.date}` : null,
+    !details.asap && details.time ? `Time: ${details.time}` : null,
     details.passengers ? `Passengers: ${details.passengers}` : null,
     details.vehicles ? `Vehicles needed: ${details.vehicles}` : null,
     details.notes ? `Notes: ${details.notes}` : null,
@@ -146,6 +149,12 @@ export const pricing: VehiclePrice[] = [
   { id: "landcruiser-zx", vehicle: "Landcruiser ZX", kes: 20000, usd: 150, sortOrder: 5 },
   { id: "crown", vehicle: "Toyota Crown", kes: 7000, usd: 55, sortOrder: 6 },
 ]
+
+/**
+ * Minimum fare for a short ride within Mombasa, in KES. Leave as null to
+ * show "priced by distance" instead of a figure.
+ */
+export const SHORT_RIDE_FROM_KES: number | null = null
 
 export const pricingNote =
   "All prices are inclusive of driver, fuel and standard amenities."

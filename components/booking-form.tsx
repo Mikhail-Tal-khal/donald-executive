@@ -11,6 +11,7 @@ import {
   User,
   MessageSquare,
   ArrowRight,
+  Zap,
 } from "lucide-react"
 import { buildWhatsAppLink, serviceOptions, type BookingDetails } from "@/lib/site"
 import { cn } from "@/lib/utils"
@@ -37,6 +38,7 @@ const labelBase =
 export function BookingForm({ className }: { className?: string }) {
   const [form, setForm] = useState<BookingDetails>(empty)
   const [agreed, setAgreed] = useState(false)
+  const [asap, setAsap] = useState(false)
 
   // Vehicle count only applies to wedding convoys
   const showVehicles = form.service === "Wedding Transport"
@@ -48,6 +50,7 @@ export function BookingForm({ className }: { className?: string }) {
     e.preventDefault()
     const url = buildWhatsAppLink({
       ...(showVehicles ? form : { ...form, vehicles: "" }),
+      asap,
       termsAccepted: agreed,
     })
     // Navigate rather than window.open: a popup with a features string gets
@@ -121,33 +124,53 @@ export function BookingForm({ className }: { className?: string }) {
           </div>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-3">
-          <div>
-            <label className={labelBase} htmlFor="date">
-              <CalendarDays className="size-3.5 text-primary" /> Date
-            </label>
-            <input
-              id="date"
-              type="date"
-              value={form.date}
-              onChange={(e) => update("date", e.target.value)}
-              className={fieldBase}
-              required
-            />
-          </div>
-          <div>
-            <label className={labelBase} htmlFor="time">
-              <Clock className="size-3.5 text-primary" /> Time
-            </label>
-            <input
-              id="time"
-              type="time"
-              value={form.time}
-              onChange={(e) => update("time", e.target.value)}
-              className={fieldBase}
-              required
-            />
-          </div>
+        <label className="flex cursor-pointer items-center gap-3 rounded-lg border border-border bg-background/40 px-3 py-2.5 text-sm text-foreground transition-colors has-[:checked]:border-primary has-[:checked]:bg-primary/10">
+          <input
+            type="checkbox"
+            checked={asap}
+            onChange={(e) => setAsap(e.target.checked)}
+            className="size-4 shrink-0 cursor-pointer accent-primary"
+          />
+          <Zap className="size-4 shrink-0 text-primary" />
+          <span>
+            As soon as possible
+            <span className="block text-xs text-muted-foreground">
+              Need a ride now? Skip the date and time.
+            </span>
+          </span>
+        </label>
+
+        <div className={cn("grid gap-4", asap ? "sm:grid-cols-1" : "sm:grid-cols-3")}>
+          {!asap && (
+            <>
+              <div>
+                <label className={labelBase} htmlFor="date">
+                  <CalendarDays className="size-3.5 text-primary" /> Date
+                </label>
+                <input
+                  id="date"
+                  type="date"
+                  value={form.date}
+                  onChange={(e) => update("date", e.target.value)}
+                  className={fieldBase}
+                  required
+                />
+              </div>
+              <div>
+                <label className={labelBase} htmlFor="time">
+                  <Clock className="size-3.5 text-primary" /> Time
+                </label>
+                <input
+                  id="time"
+                  type="time"
+                  value={form.time}
+                  onChange={(e) => update("time", e.target.value)}
+                  className={fieldBase}
+                  required
+                />
+              </div>
+            </>
+          )}
           <div>
             <label className={labelBase} htmlFor="passengers">
               <Users className="size-3.5 text-primary" /> Guests
