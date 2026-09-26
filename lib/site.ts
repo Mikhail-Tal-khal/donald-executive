@@ -59,6 +59,13 @@ export const services = [
       "Self-drive or chauffeur-driven luxury vehicles by the hour, day or week — tailored to your itinerary.",
     image: "/images/fleet-lineup.png",
   },
+  {
+    id: "point-to-point",
+    title: "Point-to-Point & Long-Distance Travel",
+    description:
+      "Private rides to any destination — short hops around Mombasa or long-distance trips to Nairobi, Diani, Malindi, Watamu and beyond.",
+    image: "/images/exclusive-luxury.jpeg",
+  },
 ] as const
 
 export const serviceOptions = services.map((s) => s.title)

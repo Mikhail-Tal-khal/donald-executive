@@ -21,43 +21,60 @@ export function Services() {
       </div>
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {services.map((service, i) => (
-          <a
-            key={service.id}
-            href={buildWhatsAppLink({ service: service.title })}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={
-              "group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-card transition-colors hover:border-primary/50" +
-              (i === 0 ? " sm:col-span-2 lg:col-span-1" : "")
-            }
-          >
-            <div className="relative aspect-[4/3] overflow-hidden">
-              <Image
-                src={service.image || "/placeholder.svg"}
-                alt={service.title}
-                fill
-                sizes="(min-width: 1280px) 400px, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent" />
-            </div>
-            <div className="flex flex-1 flex-col p-6">
-              <div className="flex items-start justify-between gap-3">
-                <h3 className="font-serif text-xl text-foreground">{service.title}</h3>
-                <span className="mt-1 flex size-8 shrink-0 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors group-hover:border-primary group-hover:bg-primary group-hover:text-primary-foreground">
-                  <ArrowUpRight className="size-4" />
+        {services.map((service, i) => {
+          // First and last cards go wide on desktop so seven cards fill the
+          // 3-column grid without an orphan on the final row.
+          const first = i === 0
+          const last = i === services.length - 1
+          return (
+            <a
+              key={service.id}
+              href={buildWhatsAppLink({ service: service.title })}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={
+                "group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-card transition-colors hover:border-primary/50" +
+                (first ? " sm:col-span-2" : "") +
+                (last ? " lg:col-span-2" : "")
+              }
+            >
+              <div
+                className={
+                  "relative aspect-[4/3] overflow-hidden" +
+                  (first ? " sm:aspect-[8/3]" : "") +
+                  (first || last ? " lg:aspect-[8/3]" : "")
+                }
+              >
+                <Image
+                  src={service.image || "/placeholder.svg"}
+                  alt={service.title}
+                  fill
+                  sizes={
+                    first || last
+                      ? "(min-width: 1280px) 820px, (min-width: 1024px) 66vw, 100vw"
+                      : "(min-width: 1280px) 400px, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                  }
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent" />
+              </div>
+              <div className="flex flex-1 flex-col p-6">
+                <div className="flex items-start justify-between gap-3">
+                  <h3 className="font-serif text-xl text-foreground">{service.title}</h3>
+                  <span className="mt-1 flex size-8 shrink-0 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors group-hover:border-primary group-hover:bg-primary group-hover:text-primary-foreground">
+                    <ArrowUpRight className="size-4" />
+                  </span>
+                </div>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                  {service.description}
+                </p>
+                <span className="mt-4 text-xs font-medium uppercase tracking-wider text-primary">
+                  Book via WhatsApp
                 </span>
               </div>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                {service.description}
-              </p>
-              <span className="mt-4 text-xs font-medium uppercase tracking-wider text-primary">
-                Book via WhatsApp
-              </span>
-            </div>
-          </a>
-        ))}
+            </a>
+            )
+        })}
       </div>
     </section>
   )
