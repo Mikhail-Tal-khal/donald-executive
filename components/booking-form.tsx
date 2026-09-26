@@ -215,7 +215,12 @@ export function BookingForm({ className }: { className?: string }) {
           <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
         </button>
         <p className="text-center text-xs text-muted-foreground">
-          Your details are pre-filled into a WhatsApp message to our team.
+          Your details are pre-filled into a WhatsApp message to our team. By
+          booking you agree to our{" "}
+          <a href="/terms" className="text-primary underline-offset-2 hover:underline">
+            cancellation &amp; no-show policy
+          </a>
+          .
         </p>
       </div>
     </form>

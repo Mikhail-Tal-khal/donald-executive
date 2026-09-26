@@ -7,11 +7,11 @@ import { site } from "@/lib/site"
 import { cn } from "@/lib/utils"
 
 const links = [
-  { label: "Services", href: "#services" },
-  { label: "Fleet", href: "#fleet" },
-  { label: "Pricing", href: "#pricing" },
-  { label: "How it works", href: "#how" },
-  { label: "Contact", href: "#contact" },
+  { label: "Services", href: "/#services" },
+  { label: "Fleet", href: "/#fleet" },
+  { label: "Pricing", href: "/#pricing" },
+  { label: "How it works", href: "/#how" },
+  { label: "Contact", href: "/#contact" },
 ]
 
 export function SiteHeader() {
@@ -35,7 +35,7 @@ export function SiteHeader() {
       )}
     >
       <div className="mx-auto flex h-18 max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
-        <a href="#top" className="flex items-center gap-3">
+        <a href="/#top" className="flex items-center gap-3">
           <span className="relative block size-11 shrink-0 overflow-hidden rounded-full bg-white">
             <Image
               src="/images/de-crest.png"
@@ -77,7 +77,7 @@ export function SiteHeader() {
             {site.phoneDisplay}
           </a>
           <a
-            href="#book"
+            href="/#book"
             className="inline-flex h-11 items-center rounded-lg bg-primary px-5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-gold-soft"
           >
             Book Now
@@ -109,7 +109,7 @@ export function SiteHeader() {
               </a>
             ))}
             <a
-              href="#book"
+              href="/#book"
               onClick={() => setOpen(false)}
               className="mt-2 inline-flex h-11 items-center justify-center rounded-lg bg-primary px-5 text-sm font-semibold text-primary-foreground"
             >

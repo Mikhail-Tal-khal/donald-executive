@@ -34,12 +34,13 @@ function InstagramIcon({ className }: { className?: string }) {
 }
 
 const nav = [
-  { label: "Services", href: "#services" },
-  { label: "Fleet", href: "#fleet" },
-  { label: "Pricing", href: "#pricing" },
-  { label: "Payments", href: "#payments" },
-  { label: "How it works", href: "#how" },
-  { label: "Book Now", href: "#book" },
+  { label: "Services", href: "/#services" },
+  { label: "Fleet", href: "/#fleet" },
+  { label: "Pricing", href: "/#pricing" },
+  { label: "Payments", href: "/#payments" },
+  { label: "How it works", href: "/#how" },
+  { label: "Book Now", href: "/#book" },
+  { label: "Terms & Conditions", href: "/terms" },
 ]
 
 export function SiteFooter() {
@@ -154,7 +155,12 @@ export function SiteFooter() {
       <div className="border-t border-border">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 py-6 text-xs text-muted-foreground sm:flex-row sm:px-6 lg:px-8">
           <p>© {new Date().getFullYear()} Donald Executive. All rights reserved.</p>
-          <p>Nyali, Mombasa · Kenya</p>
+          <p>
+            Nyali, Mombasa · Kenya ·{" "}
+            <a href="/terms" className="transition-colors hover:text-primary">
+              Terms &amp; Conditions
+            </a>
+          </p>
         </div>
       </div>
     </footer>

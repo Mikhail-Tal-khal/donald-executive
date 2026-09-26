@@ -4,6 +4,7 @@ import { Services } from "@/components/services"
 import { Fleet } from "@/components/fleet"
 import { Pricing } from "@/components/pricing"
 import { PaymentMethods } from "@/components/payment-methods"
+import { BookingTerms } from "@/components/booking-terms"
 import { HowItWorks } from "@/components/how-it-works"
 import { Contact } from "@/components/contact"
 import { SiteFooter } from "@/components/site-footer"
@@ -20,6 +21,7 @@ export default function Page() {
         <Pricing />
         <PaymentMethods />
         <HowItWorks />
+        <BookingTerms />
         <Contact />
       </main>
       <SiteFooter />
